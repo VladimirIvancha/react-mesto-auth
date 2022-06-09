@@ -60,15 +60,15 @@ function EditAvatarPopup({
         <input
           value={userAvatar}
           type="url"
-          className="popup-form__text-form"
+          className="form__item-avatar"
           name="avatar-link"
           placeholder="Ссылка на новый аватар"
           required
           onChange={handleOnChangeInputAvatar}
         />
         <span
-          className={`popup-form__error-message${
-            !errorInputAvatar.isValid ? " popup-form__error-message_active" : ""
+          className={`form__input-error${
+            !errorInputAvatar.isValid ? "form__input-error_active" : ""
           }`}
           id="avatar-link-error"
         >

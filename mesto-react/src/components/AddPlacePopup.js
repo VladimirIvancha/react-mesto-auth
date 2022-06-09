@@ -69,7 +69,7 @@ function AddPlacePopup({
   return (
     <PopupWithForm
       title="Новое место"
-      name="card-form"
+      name="element-form"
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
@@ -82,8 +82,8 @@ function AddPlacePopup({
         <input
           value={cardName}
           type="text"
-          className="popup-form__text-form"
-          name="image-title"
+          className="form__item"
+          name="element-name"
           placeholder="Название"
           minLength="2"
           maxLength="30"
@@ -91,27 +91,27 @@ function AddPlacePopup({
           onChange={handleOnChangeInputName}
         />
         <span
-          className={`popup-form__error-message${
-            !errorInputName.isValid ? " popup-form__error-message_active" : ""
+          className={`form__input-error${
+            !errorInputName.isValid ? "form__input-error_active" : ""
           }`}
-          id="image-title-error"
+          id="element-name-error"
         >
           {isUserUseInputName ? errorInputName.errorMessage : ""}
         </span>
         <input
           value={cardLink}
           type="url"
-          className="popup-form__text-form"
-          name="image-link"
-          placeholder="Ссылка на картинку"
+          className="form__item"
+          name="element-link"
+          placeholder="Ссылка на фотографию"
           required
           onChange={handleOnChangeInputLink}
         />
         <span
-          className={`popup-form__error-message${
-            !errorInputLink.isValid ? " popup-form__error-message_active" : ""
+          className={`form__input-error${
+            !errorInputLink.isValid ? "form__input-error_active" : ""
           }`}
-          id="image-link-error"
+          id="element-link-error"
         >
           {isUserUseInputLink ? errorInputLink.errorMessage : ""}
         </span>

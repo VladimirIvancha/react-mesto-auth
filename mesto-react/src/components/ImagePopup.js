@@ -15,33 +15,32 @@ function ImagePopup({ card, onClose, isOpen }) {
   }, [isOpen]);
 
   function handleMouseClick(evt) {
-    if (evt.target.classList.contains("popup_opened")) {
+    if (evt.target.classList.contains("popup_is-opened")) {
       onClose();
     }
   }
 
   return (
-    <section
-      id="popup-big-image"
-      className={`popup ${isOpen && "popup_opened"} popup_overlay_dark`}
+    <div
+    //   id="popup-big-image"
+      className={`popup ${isOpen && "popup_is-opened"} element-popup-image`}
       onMouseDown={handleMouseClick}
     >
-      <div className="popup__container">
-        <figure className="popup-big-image">
-          <img
-            src={card.link}
-            alt={card.name}
-            className="popup-big-image__image"
-          />
-          <figcaption className="popup-big-image__text">{card.name}</figcaption>
-        </figure>
+      <div className="popup__image-container">
         <button
           onClick={onClose}
+          aria-label="закрыть"
           type="button"
-          className="popup__close-button"
+          className="popup__close popup__close_correct"
         ></button>
+        <img
+            src={card.link}
+            alt={card.name}
+            className="popup__image"
+        />
+        <h4 className="popup__image-title">{card.name}</h4>  
       </div>
-    </section>
+    </div>
   );
 }
 

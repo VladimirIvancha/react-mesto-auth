@@ -100,38 +100,38 @@ function EditProfilePopup({
         <input
           value={userName || ''}
           type="text"
-          className="popup-form__text-form"
+          className="form__item-name"
           name="name"
-          placeholder="Имя"
+          placeholder="Ваше Имя"
           minLength="2"
           maxLength="40"
           required
           onChange={handleOnChangeInputName}
         />
         <span
-          className={`popup-form__error-message${
-            !errorInputName.isValid ? " popup-form__error-message_active" : ""
+          className={`form__input-error${
+            !errorInputName.isValid ? "form__input-error_active" : ""
           }`}
-          id="name-error"
+          id="profile-name-error"
         >
           {isUserUseInputName ? errorInputName.errorMessage : ""}
         </span>
         <input
           value={userAbout || ''}
           type="text"
-          className="popup-form__text-form"
-          name="speciality"
-          placeholder="Призвание"
+          className="form__item-prophecy"
+          name="prophecy"
+          placeholder="О себе"
           minLength="2"
           maxLength="200"
           required
           onChange={handleOnChangeInputAbout}
         />
         <span
-          className={`popup-form__error-message${
-            !errorInputAbout.isValid ? " popup-form__error-message_active" : ""
+          className={`form__input-error${
+            !errorInputAbout.isValid ? "form__input-error_active" : ""
           }`}
-          id="speciality-error"
+          id="profile-prophecy-error"
         >
           {isUserUseInputAbout ? errorInputAbout.errorMessage : ""}
         </span>

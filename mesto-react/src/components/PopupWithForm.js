@@ -26,37 +26,39 @@ function PopupWithForm({
   }, [isOpen]);
 
   function handleMouseClick(evt) {
-    if (evt.target.classList.contains("popup_opened")) {
+    if (evt.target.classList.contains("popup_is-opened")) {
       onClose();
     }
   }
 
   return (
     <section
-      className={`popup ${isOpen && "popup_opened"} popup_type_${name}`}
+      className={`popup ${isOpen && "popup_is-opened"} popup_type_${name}`}
       onMouseDown={handleMouseClick}
     >
       <div className="popup__container">
-        <form className="popup-form" name={name} noValidate onSubmit={onSubmit}>
-          <h2 className="popup-form__title">{title}</h2>
+        <button
+          type="button"
+          aria-label="закрыть"
+          className="popup__close"
+          onClick={onClose}
+        ></button>
+        <h2 class="popup__title">{title}</h2>
+        <form className="form" name={name} noValidate onSubmit={onSubmit}>
           {children}
           <button
             type="submit"
-            className={`popup-form__save-button${
+            className={`popup__save-info${
               !canSubmit || isSubmitInLoading
-                ? ""
-                : " popup-form__save-button_active"
+                ? "popup__save-info_inactive"
+                : ""
             }`}
             disabled={!canSubmit || isSubmitInLoading}
           >
             {isSubmitInLoading ? buttonTextInLoading : buttonText}
           </button>
         </form>
-        <button
-          type="button"
-          className="popup__close-button"
-          onClick={onClose}
-        ></button>
+        
       </div>
     </section>
   );

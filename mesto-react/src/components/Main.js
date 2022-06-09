@@ -35,7 +35,48 @@ function Main({
 
   return (
     <main className="content">
-    <EditProfilePopup
+      <section className="profile">
+        <div className="profile__wrapper">
+          <div 
+            className="profile__avatar"
+            onClick={onEditAvatar}
+            style={{ backgroundImage: `url(${currentUser.avatar})` }}
+          ></div>
+          <div className="profile__info">
+            <div className="profile__title-wrapper">
+              <div className="profile__text">
+                <h1 className="profile__title">{currentUser.name}</h1>
+                <p className="profile__subtitle">{currentUser.about}</p>
+              </div>
+              <button 
+                type="button" aria-label="редактировать" 
+                className="profile__edit-button"
+                onClick={onEditProfile}
+              ></button>
+             </div>
+           </div>
+        </div>
+        <button 
+          type="button" 
+          aria-label="добавить" 
+          className="profile__add-button"
+          onClick={onAddPlace}
+        ></button>
+      </section>
+      <div className="elements">
+      {cards.map((card) => {
+          return (
+            <Card
+              key={card._id}
+              card={card}
+              onCardClick={onCardClick}
+              onCardLike={onCardLike}
+              onTrashClick={onTrashClick}
+            />
+          );
+        })}
+      </div>
+      <EditProfilePopup
         onClose={closeAllPopups}
         isOpen={isOpenEditProfile}
         onUpdateUser={onUpdateUser}
@@ -70,46 +111,6 @@ function Main({
         onClose={closeAllPopups}
         isOpen={isImagePopupOpen}
       />
-      <section className="profile">
-        <div className="profile__wrapper">
-          <div 
-            className="profile__avatar"
-            onClick={onEditAvatar}
-            style={{ backgroundImage: `url(${currentUser.avatar})` }}
-          ></div>
-          <div className="profile__info">
-            <div className="profile__title-wrapper">
-              <div className="profile__text">
-                <h1 className="profile__title">{currentUser.name}</h1>
-                <p className="profile__subtitle">{currentUser.about}</p>
-              </div>
-              <button 
-                type="button" aria-label="редактировать" 
-                className="profile__edit-button"
-                onClick={onEditProfile}
-              ></button>
-             </div>
-           </div>
-        </div>
-        <button 
-          type="button" aria-label="добавить" 
-          className="profile__add-button"
-          onClick={onAddPlace}
-        ></button>
-      </section>
-      <div className="elements">
-      {cards.map((card) => {
-          return (
-            <Card
-              key={card._id}
-              card={card}
-              onCardClick={onCardClick}
-              onCardLike={onCardLike}
-              onTrashClick={onTrashClick}
-            />
-          );
-        })}
-      </div>
     </main>
   );
 }

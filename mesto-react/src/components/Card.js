@@ -19,23 +19,25 @@ function Card({ card, onCardClick, onCardLike, onTrashClick }) {
         alt={card.name}
         onClick={() => onCardClick(card)}
       />
-        {isOwn && (
-        <button
-          className="location__trash-button"
-          onClick={() => onTrashClick(card)}
-        ></button>
-        )}
+          {isOwn && (
+          <button
+            type="button"
+            aria-label="удалить"
+            className="element__delete-button"
+            onClick={() => onTrashClick(card)}
+          ></button>
+          )}
       <div className="element__wrapper">
-            <h2 className="element__title">{card.name}</h2>
-            <div className="element__like-wrapper"> 
-              <button 
-                type="button" 
-                aria-label="лайкнуть" 
-                className={cardLikeButtonClassName}
-                onClick={() => onCardLike(card)}
-              >
-                {""}  
-              </button>
+        <h2 className="element__title">{card.name}</h2>
+        <div className="element__like-wrapper"> 
+            <button 
+              type="button" 
+              aria-label="лайкнуть" 
+              className={cardLikeButtonClassName}
+              onClick={() => onCardLike(card)}
+            >
+              {""}  
+            </button>
               <span className="element__like-value">
                 {cardLikesCount === 0 ? "" : cardLikesCount}
               </span>
