@@ -92,7 +92,7 @@ function AddPlacePopup({
         />
         <span
           className={`form__input-error${
-            !errorInputName.isValid ? "form__input-error_active" : ""
+            !errorInputName.isValid ? " form__input-error_active" : ""
           }`}
           id="element-name-error"
         >
@@ -109,7 +109,7 @@ function AddPlacePopup({
         />
         <span
           className={`form__input-error${
-            !errorInputLink.isValid ? "form__input-error_active" : ""
+            !errorInputLink.isValid ? " form__input-error_active" : ""
           }`}
           id="element-link-error"
         >

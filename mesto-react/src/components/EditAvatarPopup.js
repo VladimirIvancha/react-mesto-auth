@@ -1,5 +1,5 @@
 import PopupWithForm from "./PopupWithForm";
-import { useState, useRef, useEffect, memo } from "react";
+import { useState, useEffect, memo } from "react";
 
 function EditAvatarPopup({
   onClose,
@@ -60,7 +60,7 @@ function EditAvatarPopup({
         <input
           value={userAvatar}
           type="url"
-          className="form__item-avatar"
+          className="form__item"
           name="avatar-link"
           placeholder="Ссылка на новый аватар"
           required
@@ -68,7 +68,7 @@ function EditAvatarPopup({
         />
         <span
           className={`form__input-error${
-            !errorInputAvatar.isValid ? "form__input-error_active" : ""
+            !errorInputAvatar.isValid ? " form__input-error_active" : ""
           }`}
           id="avatar-link-error"
         >

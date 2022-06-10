@@ -23,7 +23,6 @@ function App() {
   const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen] = useState(false);
   const [isSubmitInLoading, setIsSubmitInLoading] = useState(false);
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
-  const [timerId, setTimerId] = useState(0);
   const [selectedCard, setSelectedCard] = useState({ name: " ", link: " " });
 
   const [cards, setCards] = useState([]);
@@ -35,10 +34,8 @@ function App() {
         setCards(cards);
       })
       .catch((err) => {
-        alert(
-          "Ой! Что-то пошло не так! Mesto сломался и мы не смогли подгрузить данные пользователя и карточки, простите нас! :("
-        );
-        setCurrentUser({ name: "ой,", about: "что-то сломалось" });
+        console.log("Ошибка! Что-то пошло не так!");
+        setCurrentUser({ name: "Ошибка!", about: "Ошибка!" });
       });
   }, []);
 
@@ -53,9 +50,7 @@ function App() {
         );
       })
       .catch((err) => {
-        alert(
-          "Ой! Что-то пошло не так! Mesto не смог поменять like для карточки"
-        );
+        console.log("Ошибка! Что-то пошло не так!");
       });
   }
 
@@ -68,7 +63,10 @@ function App() {
         closeAllPopups();
       })
       .catch((err) => {
-        alert("Ой! Что-то пошло не так! Mesto не смог удалить карточку");
+        console.log("Ошибка удаления карточки! Что-то пошло не так");
+      })
+      .finally(() => {
+        setIsSubmitInLoading(false);
       });
   }
 
@@ -83,7 +81,7 @@ function App() {
         closeAllPopups();
       })
       .catch((err) => {
-        alert("Ой! Что-то пошло не так! Mesto не смог сохранить ваше имя");
+        console.log("Ошибка! Что-то пошло не так!");
       })
       .finally(() => {
         setIsSubmitInLoading(false);
@@ -101,7 +99,7 @@ function App() {
         closeAllPopups();
       })
       .catch((err) => {
-        alert("Ой! Что-то пошло не так! Mesto не смог сохранить ваш аватар");
+        console.log("Ошибка! Что-то пошло не так!");
       })
       .finally(() => {
         setIsSubmitInLoading(false);
@@ -119,9 +117,7 @@ function App() {
         closeAllPopups();
       })
       .catch((err) => {
-        alert(
-          "Ой! Что-то пошло не так! Mesto не смог сохранить новую карточку"
-        );
+        console.log("Ошибка! Что-то пошло не так!");
       })
       .finally(() => {
         setIsSubmitInLoading(false);
@@ -134,18 +130,10 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsImagePopupOpen(false);
     setIsDeletePlacePopupOpen(false);
-
-    //таймер для правильного закрытия больших картинок (иначе очищение карточки происходит до окончательного закрытия попапа)
-    const timerFreshCard = setTimeout(
-      () => setSelectedCard({ name: " ", link: " ", likes: [] }),
-      1000
-    );
-    setTimerId(timerFreshCard);
   }
 
   function handleCardClick(card) {
     setIsImagePopupOpen(true);
-    clearTimeout(timerId);
     setSelectedCard(card);
   }
 
@@ -166,7 +154,6 @@ function App() {
 
   function handleTrashButtonClick(card) {
     setIsDeletePlacePopupOpen(true);
-    clearTimeout(timerId);
     setIsSubmitInLoading(false);
     setSelectedCard(card);
   }

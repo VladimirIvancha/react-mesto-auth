@@ -9,12 +9,20 @@
   margin-top: 19px;
   margin-bottom: 25px;
   transition: opacity 0.3s;
+  display: block;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
 }
 @media screen and (min-width: 880px) {
   .popup__save-info {
     width: 360px;
     height: 51px;
     margin-top: 12px;
+    font-size: 18px;
+    line-height: 22px;
   }
 }
 .popup__save-info:hover {

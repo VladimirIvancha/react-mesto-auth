@@ -43,20 +43,22 @@ function PopupWithForm({
           className="popup__close"
           onClick={onClose}
         ></button>
-        <h2 class="popup__title">{title}</h2>
+        <h2 className="popup__title">{title}</h2>
         <form className="form" name={name} noValidate onSubmit={onSubmit}>
-          {children}
-          <button
-            type="submit"
-            className={`popup__save-info${
-              !canSubmit || isSubmitInLoading
-                ? "popup__save-info_inactive"
-                : ""
-            }`}
-            disabled={!canSubmit || isSubmitInLoading}
-          >
-            {isSubmitInLoading ? buttonTextInLoading : buttonText}
-          </button>
+          <fieldset className="form__edit">
+            {children}
+            <button
+              type="submit"
+              className={`popup__save-info${
+                !canSubmit || isSubmitInLoading
+                  ? " popup__save-info_inactive"
+                  : ""
+              }`}
+              disabled={!canSubmit || isSubmitInLoading}
+            >
+              {isSubmitInLoading ? buttonTextInLoading : buttonText}
+            </button>
+          </fieldset>
         </form>
         
       </div>

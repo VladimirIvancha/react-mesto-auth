@@ -100,7 +100,7 @@ function EditProfilePopup({
         <input
           value={userName || ''}
           type="text"
-          className="form__item-name"
+          className="form__item"
           name="name"
           placeholder="Ваше Имя"
           minLength="2"
@@ -110,7 +110,7 @@ function EditProfilePopup({
         />
         <span
           className={`form__input-error${
-            !errorInputName.isValid ? "form__input-error_active" : ""
+            !errorInputName.isValid ? " form__input-error_active" : ""
           }`}
           id="profile-name-error"
         >
@@ -119,7 +119,7 @@ function EditProfilePopup({
         <input
           value={userAbout || ''}
           type="text"
-          className="form__item-prophecy"
+          className="form__item"
           name="prophecy"
           placeholder="О себе"
           minLength="2"
@@ -129,7 +129,7 @@ function EditProfilePopup({
         />
         <span
           className={`form__input-error${
-            !errorInputAbout.isValid ? "form__input-error_active" : ""
+            !errorInputAbout.isValid ? " form__input-error_active" : ""
           }`}
           id="profile-prophecy-error"
         >

@@ -22,8 +22,7 @@ function ImagePopup({ card, onClose, isOpen }) {
 
   return (
     <div
-    //   id="popup-big-image"
-      className={`popup ${isOpen && "popup_is-opened"} element-popup-image`}
+      className={`popup ${isOpen && "popup_is-opened"}`}
       onMouseDown={handleMouseClick}
     >
       <div className="popup__image-container">
