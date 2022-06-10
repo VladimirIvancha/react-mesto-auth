@@ -1,62 +1,26 @@
-import { useEffect, memo } from "react";
-
-function PopupWithForm({
-  title,
-  name,
-  onClose,
-  isOpen,
-  onSubmit,
-  canSubmit,
-  isSubmitInLoading,
-  buttonText,
-  buttonTextInLoading,
-  children,
-}) {
-  useEffect(() => {
-    const handlerKeyClick = (evt) => {
-      if (evt.key === "Escape") {
-        onClose();
-      }
-    };
-    if (isOpen) {
-      document.addEventListener("keydown", handlerKeyClick);
-    } else {
-      document.removeEventListener("keydown", handlerKeyClick);
-    }
-  }, [isOpen]);
-
-  function handleMouseClick(evt) {
-    if (evt.target.classList.contains("popup_is-opened")) {
-      onClose();
-    }
-  }
+function PopupWithForm(props)
+{
+  const classNamePopup = `popup ${props.name}-popup ${props.isOpen ? 'popup_is-opened' : ''}`
 
   return (
     <section
-      className={`popup ${isOpen && "popup_is-opened"} popup_type_${name}`}
-      onMouseDown={handleMouseClick}
+      className={classNamePopup}
     >
       <div className="popup__container">
         <button
           type="button"
           aria-label="закрыть"
           className="popup__close"
-          onClick={onClose}
+          onClick={props.onClose}
         ></button>
-        <h2 className="popup__title">{title}</h2>
-        <form className="form" name={name} noValidate onSubmit={onSubmit}>
+        <h2 className="popup__title">{props.title}</h2>
+        <form className={`form form_${props.name}`} noValidate>
           <fieldset className="form__edit">
-            {children}
+            {props.children}
             <button
               type="submit"
-              className={`popup__save-info${
-                !canSubmit || isSubmitInLoading
-                  ? " popup__save-info_inactive"
-                  : ""
-              }`}
-              disabled={!canSubmit || isSubmitInLoading}
-            >
-              {isSubmitInLoading ? buttonTextInLoading : buttonText}
+              className="popup__save-info"
+            >Сохранить
             </button>
           </fieldset>
         </form>
@@ -66,4 +30,4 @@ function PopupWithForm({
   );
 }
 
-export default memo(PopupWithForm);
+export default PopupWithForm;

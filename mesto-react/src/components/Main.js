@@ -1,37 +1,28 @@
-import ImagePopup from "./ImagePopup";
-import { useContext, memo } from "react";
+import React from 'react';
 import Card from "./Card";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
-import AddPlacePopup from "./AddPlacePopup";
-import DeletePopup from "./DeletePopup";
+import { api } from "../utils/api";
 
-function Main({
-  onEditProfile,
-  onAddPlace,
-  onEditAvatar,
-  onCardClick,
-  onTrashClick,
-  closeAllPopups,
-  onUpdateUser,
-  onUpdateAvatar,
-  onCardLike,
-  onCardDelete,
-  onAddPlaceSubmit,
-  cards,
-  isOpenEditProfile,
-  isAddPlacePopupOpen,
-  isEditAvatarPopupOpen,
-  isDeletePlacePopupOpen,
-  isImagePopupOpen,
-  isSubmitInLoading,
-  isSubmitSuccess,
-  selectedCard,
-}) 
+function Main(props)
 
-{   
-  const currentUser = useContext(CurrentUserContext);
+{
+
+  const [userName, setUserName] = React.useState('');
+  const [userDescription, setUserDescription] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
+  const [cards, setCards] = React.useState([]);
+
+  React.useEffect(() => {
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
+      .then(([user, cards]) => {
+        setUserName(user.name)
+        setUserDescription(user.about)
+        setUserAvatar(user.avatar)
+        setCards(cards)
+      })
+      .catch((err) => {
+        console.log("Ошибка! Что-то пошло не так!");
+      });
+  }, []);
 
   return (
     <main className="content">
@@ -39,19 +30,19 @@ function Main({
         <div className="profile__wrapper">
           <div 
             className="profile__avatar"
-            onClick={onEditAvatar}
-            style={{ backgroundImage: `url(${currentUser.avatar})` }}
+            onClick={props.onEditAvatar}
+            style={{ backgroundImage: `url(${userAvatar})` }}
           ></div>
           <div className="profile__info">
             <div className="profile__title-wrapper">
               <div className="profile__text">
-                <h1 className="profile__title">{currentUser.name}</h1>
-                <p className="profile__subtitle">{currentUser.about}</p>
+                <h1 className="profile__title">{userName}</h1>
+                <p className="profile__subtitle">{userDescription}</p>
               </div>
               <button 
                 type="button" aria-label="редактировать" 
                 className="profile__edit-button"
-                onClick={onEditProfile}
+                onClick={props.onEditProfile}
               ></button>
              </div>
            </div>
@@ -60,59 +51,19 @@ function Main({
           type="button" 
           aria-label="добавить" 
           className="profile__add-button"
-          onClick={onAddPlace}
+          onClick={props.onAddPlace}
         ></button>
       </section>
       <div className="elements">
-      {cards.map((card) => {
-          return (
-            <Card
-              key={card._id}
-              card={card}
-              onCardClick={onCardClick}
-              onCardLike={onCardLike}
-              onTrashClick={onTrashClick}
-            />
-          );
-        })}
+      {cards.map((card) =>
+          <Card key={card._id}
+          card={card}
+          onCardClick={props.onCardClick}
+        />)
+        }
       </div>
-      <EditProfilePopup
-        onClose={closeAllPopups}
-        isOpen={isOpenEditProfile}
-        onUpdateUser={onUpdateUser}
-        isSubmitInLoading={isSubmitInLoading}
-        isSubmitSuccess={isSubmitSuccess}
-      />
-      <EditAvatarPopup
-        onClose={closeAllPopups}
-        isOpen={isEditAvatarPopupOpen}
-        onUpdateAvatar={onUpdateAvatar}
-        isSubmitInLoading={isSubmitInLoading}
-        isSubmitSuccess={isSubmitSuccess}
-      />
-      <AddPlacePopup
-        onClose={closeAllPopups}
-        isOpen={isAddPlacePopupOpen}
-        onAddPlace={onAddPlaceSubmit}
-        isSubmitInLoading={isSubmitInLoading}
-        isSubmitSuccess={isSubmitSuccess}
-      />
-      <DeletePopup
-        onClose={closeAllPopups}
-        isOpen={isDeletePlacePopupOpen}
-        card={selectedCard}
-        onCardDelete={onCardDelete}
-        isSubmitInLoading={isSubmitInLoading}
-        isSubmitSuccess={isSubmitSuccess}
-      />
-
-      <ImagePopup
-        card={selectedCard}
-        onClose={closeAllPopups}
-        isOpen={isImagePopupOpen}
-      />
     </main>
   );
 }
   
-export default memo(Main);
+export default Main;
