@@ -48,13 +48,12 @@ function App() {
         <Footer />
         
         <PopupWithForm
-        title="Редактировать профиль"
-        name="profile-form"
-        onEditProfile=''
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-      >
-        <>
+          title="Редактировать профиль"
+          name="profile-form"
+          onEditProfile=''
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+        >
           <input
             type="text"
             className="form__item"
@@ -81,75 +80,76 @@ function App() {
             className="form__input-error"
             id="profile-prophecy-error"
           ></span>
-        </>
-      </PopupWithForm>
+        </PopupWithForm>
 
-      <PopupWithForm
-        name='add-card'
-        title='Новое место'
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
-      >
-        <label className="form__field">
-          <input 
-          type="text" 
-          name="name" 
-          placeholder="Название"
-          className="popup__input add-card__input-type-namePhoto" 
-          minLength="2" 
-          maxLength="30" 
-          id="namePhoto"
-          required />
-          <span 
-          className="popup__input-error" 
-          id="namePhoto-error"
-          ></span>
-        </label>
-        <label className="form__field">
-          <input 
-          type="url" 
-          name="link" 
-          placeholder="Ссылка на картинку"
-          className="popup__input add-card__input-type-linkPhoto" 
-          id="linkPhoto" 
-          required />
-          <span 
-          className="popup__input-error" 
-          id="linkPhoto-error"
-          ></span>
-        </label>
-      </PopupWithForm>
+        <PopupWithForm
+          name='element-form'
+          title='Новое место'
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+        >
+          <>
+            <input 
+              type="text" 
+              name="element-name" 
+              placeholder="Название"
+              className="form__item" 
+              minLength="2" 
+              maxLength="30" 
+              id="element-name"
+              required 
+            />
+            <span 
+              className="form__input-error" 
+              id="element-name-error"
+            ></span>
+  
+            <input 
+              type="url" 
+              name="element-link" 
+              placeholder="Ссылка на фотографию"
+              className="form__item" 
+              id="element-link" 
+              required 
+            />
+            <span 
+              className="form__input-error" 
+              id="element-link-error"
+            ></span>
+          </>
+        </PopupWithForm>
 
-      <PopupWithForm
-        name='update-avatar'
-        title='Обновить аватар'
-        isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-      >
-        <label className="form__field">
-          <input 
-          type="url" 
-          name="avatar" 
-          placeholder="Ссылка на новый аватар"
-          className="popup__input popup__input-type-linkNewAvatar" 
-          id="avatar" 
-          required />
-          <span 
-          className="popup__input-error" 
-          id="avatar-error"
-          ></span>
-        </label>
-      </PopupWithForm>
+        <PopupWithForm
+          name='update-avatar'
+          title='Обновить аватар'
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+        >
+          <>
+            <input 
+              type="url" 
+              name="avatar-link" 
+              placeholder="Ссылка на новый аватар"
+              className="form__item" 
+              id="avatar" 
+              required 
+            />
+            <span 
+            className="form__input-error" 
+            id="avatar-link-error"
+            ></span>
+          </>
+        </PopupWithForm>
 
-      <PopupWithForm
-        name='confirm'
-        title='Вы уверены?'
-      />
+        <PopupWithForm
+          name='confirm'
+          title='Вы уверены?'
+        />
 
-      <ImagePopup
-        card={selectCard}
-        onClose={closeAllPopups}
-      />
+        <ImagePopup
+          card={selectCard}
+          onClose={closeAllPopups}
+        />
       </div>
     </div>
   );

@@ -1,17 +1,23 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import Card from "./Card";
 import { api } from "../utils/api";
 
-function Main(props)
+function Main(
+  {
+    onEditAvatar,
+    onEditProfile,
+    onAddPlace,
+    onCardClick
+  })
 
 {
 
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState('');
+  const [cards, setCards] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([user, cards]) => {
         setUserName(user.name)
@@ -30,7 +36,7 @@ function Main(props)
         <div className="profile__wrapper">
           <div 
             className="profile__avatar"
-            onClick={props.onEditAvatar}
+            onClick={onEditAvatar}
             style={{ backgroundImage: `url(${userAvatar})` }}
           ></div>
           <div className="profile__info">
@@ -42,7 +48,7 @@ function Main(props)
               <button 
                 type="button" aria-label="редактировать" 
                 className="profile__edit-button"
-                onClick={props.onEditProfile}
+                onClick={onEditProfile}
               ></button>
              </div>
            </div>
@@ -51,16 +57,17 @@ function Main(props)
           type="button" 
           aria-label="добавить" 
           className="profile__add-button"
-          onClick={props.onAddPlace}
+          onClick={onAddPlace}
         ></button>
       </section>
       <div className="elements">
-      {cards.map((card) =>
+      {
+        cards.map((card) => (
           <Card key={card._id}
           card={card}
-          onCardClick={props.onCardClick}
+          onCardClick={onCardClick}
         />)
-        }
+        )}
       </div>
     </main>
   );

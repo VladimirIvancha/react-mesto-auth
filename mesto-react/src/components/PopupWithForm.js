@@ -1,6 +1,14 @@
-function PopupWithForm(props)
+function PopupWithForm(
+  {
+    name,
+    title,
+    buttonText='Сохранить (временно)',
+    isOpen,
+    onClose,
+    children
+  })
 {
-  const classNamePopup = `popup ${props.name}-popup ${props.isOpen ? 'popup_is-opened' : ''}`
+  const classNamePopup = `popup ${name}-popup ${isOpen ? 'popup_is-opened' : ''}`
 
   return (
     <section
@@ -11,16 +19,16 @@ function PopupWithForm(props)
           type="button"
           aria-label="закрыть"
           className="popup__close"
-          onClick={props.onClose}
+          onClick={onClose}
         ></button>
-        <h2 className="popup__title">{props.title}</h2>
-        <form className={`form form_${props.name}`} noValidate>
+        <h2 className="popup__title">{title}</h2>
+        <form className={`form form_${name}`} noValidate>
           <fieldset className="form__edit">
-            {props.children}
+            {children}
             <button
               type="submit"
               className="popup__save-info"
-            >Сохранить
+            >{buttonText}
             </button>
           </fieldset>
         </form>
