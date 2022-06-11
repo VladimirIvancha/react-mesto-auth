@@ -51,6 +51,7 @@ function App() {
           title="Редактировать профиль"
           name="profile-form"
           onEditProfile=''
+          buttonText='Сохранить'
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
         >
@@ -85,6 +86,7 @@ function App() {
         <PopupWithForm
           name='element-form'
           title='Новое место'
+          buttonText='Сохранить'
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
         >
@@ -122,6 +124,7 @@ function App() {
         <PopupWithForm
           name='update-avatar'
           title='Обновить аватар'
+          buttonText='Сохранить'
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
         >
@@ -144,6 +147,7 @@ function App() {
         <PopupWithForm
           name='confirm'
           title='Вы уверены?'
+          buttonText='Да'
         />
 
         <ImagePopup

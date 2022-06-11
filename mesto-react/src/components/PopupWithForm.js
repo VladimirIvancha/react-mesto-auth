@@ -2,7 +2,7 @@ function PopupWithForm(
   {
     name,
     title,
-    buttonText='Сохранить (временно)',
+    buttonText,
     isOpen,
     onClose,
     children
