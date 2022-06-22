@@ -1,34 +1,37 @@
-import { useState, useEffect } from 'react';
+import ImagePopup from "./ImagePopup";
+import { useContext, memo } from "react";
 import Card from "./Card";
-import { api } from "../utils/api";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
+import DeletePopup from "./DeletePopup";
 
-function Main(
-  {
-    onEditAvatar,
-    onEditProfile,
-    onAddPlace,
-    onCardClick
-  })
+function Main({
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  onCardClick,
+  onTrashClick,
+  closeAllPopups,
+  onUpdateUser,
+  onUpdateAvatar,
+  onCardLike,
+  onCardDelete,
+  onAddPlaceSubmit,
+  cards,
+  isOpenEditProfile,
+  isAddPlacePopupOpen,
+  isEditAvatarPopupOpen,
+  isDeletePlacePopupOpen,
+  isImagePopupOpen,
+  isSubmitInLoading,
+  isSubmitSuccess,
+  selectedCard,
+}) 
 
-{
-
-  const [userName, setUserName] = useState('');
-  const [userDescription, setUserDescription] = useState('');
-  const [userAvatar, setUserAvatar] = useState('');
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([user, cards]) => {
-        setUserName(user.name)
-        setUserDescription(user.about)
-        setUserAvatar(user.avatar)
-        setCards(cards)
-      })
-      .catch((err) => {
-        console.log("Ошибка! Что-то пошло не так!");
-      });
-  }, []);
+{   
+  const currentUser = useContext(CurrentUserContext);
 
   return (
     <main className="content">
@@ -37,13 +40,13 @@ function Main(
           <div 
             className="profile__avatar"
             onClick={onEditAvatar}
-            style={{ backgroundImage: `url(${userAvatar})` }}
+            style={{ backgroundImage: `url(${currentUser.avatar})` }}
           ></div>
           <div className="profile__info">
             <div className="profile__title-wrapper">
               <div className="profile__text">
-                <h1 className="profile__title">{userName}</h1>
-                <p className="profile__subtitle">{userDescription}</p>
+                <h1 className="profile__title">{currentUser.name}</h1>
+                <p className="profile__subtitle">{currentUser.about}</p>
               </div>
               <button 
                 type="button" aria-label="редактировать" 
@@ -61,16 +64,55 @@ function Main(
         ></button>
       </section>
       <div className="elements">
-      {
-        cards.map((card) => (
-          <Card key={card._id}
-          card={card}
-          onCardClick={onCardClick}
-        />)
-        )}
+      {cards.map((card) => {
+          return (
+            <Card
+              key={card._id}
+              card={card}
+              onCardClick={onCardClick}
+              onCardLike={onCardLike}
+              onTrashClick={onTrashClick}
+            />
+          );
+        })}
       </div>
+      <EditProfilePopup
+        onClose={closeAllPopups}
+        isOpen={isOpenEditProfile}
+        onUpdateUser={onUpdateUser}
+        isSubmitInLoading={isSubmitInLoading}
+        isSubmitSuccess={isSubmitSuccess}
+      />
+      <EditAvatarPopup
+        onClose={closeAllPopups}
+        isOpen={isEditAvatarPopupOpen}
+        onUpdateAvatar={onUpdateAvatar}
+        isSubmitInLoading={isSubmitInLoading}
+        isSubmitSuccess={isSubmitSuccess}
+      />
+      <AddPlacePopup
+        onClose={closeAllPopups}
+        isOpen={isAddPlacePopupOpen}
+        onAddPlace={onAddPlaceSubmit}
+        isSubmitInLoading={isSubmitInLoading}
+        isSubmitSuccess={isSubmitSuccess}
+      />
+      <DeletePopup
+        onClose={closeAllPopups}
+        isOpen={isDeletePlacePopupOpen}
+        card={selectedCard}
+        onCardDelete={onCardDelete}
+        isSubmitInLoading={isSubmitInLoading}
+        isSubmitSuccess={isSubmitSuccess}
+      />
+
+      <ImagePopup
+        card={selectedCard}
+        onClose={closeAllPopups}
+        isOpen={isImagePopupOpen}
+      />
     </main>
   );
 }
   
-export default Main;
+export default memo(Main);
