@@ -14,17 +14,16 @@ function AddPlacePopup({
     isValid: false,
     errorMessage: "",
   });
-  const [errorInputLink, setErrorInputLink] = useState({
+  const [inputLinkValidation, setErrorInputLink] = useState({
     isValid: false,
     errorMessage: "",
   });
   const [isUserUseInputName, setIsUserUseInputName] = useState(false);
-  const [isUserUseInputLink, setIsUserUseInputLink] = useState(false);
   const [canSubmit, setCanSubmit] = useState(false);
 
   useEffect(() => {
     setIsUserUseInputName(false);
-    setIsUserUseInputLink(false);
+    setErrorInputLink(false);
   }, [isOpen]);
 
   useEffect(() => {
@@ -42,15 +41,15 @@ function AddPlacePopup({
   }, [isSubmitSuccess]);
 
   useEffect(() => {
-    setCanSubmit(errorInputName.isValid && errorInputLink.isValid);
-  }, [errorInputName, errorInputLink]);
+    setCanSubmit(errorInputName.isValid && inputLinkValidation.isValid);
+  }, [errorInputName, inputLinkValidation]);
 
   function handleSubmit(e) {
     e.preventDefault();
     onAddPlace({ name: cardName, link: cardLink });
 
     setIsUserUseInputName(false);
-    setIsUserUseInputLink(false);
+    setErrorInputLink(false);
   }
 
   function handleOnChangeInputName(e) {
@@ -64,7 +63,7 @@ function AddPlacePopup({
 
   function handleOnChangeInputLink(e) {
     setCardLink(e.target.value);
-    setIsUserUseInputLink(true);
+    setErrorInputLink(true);
     setErrorInputLink({
       isValid: e.target.validity.valid,
       errorMessage: e.target.validationMessage,
@@ -113,11 +112,11 @@ function AddPlacePopup({
         />
         <span
           className={`form__input-error${
-            !errorInputLink.isValid ? " form__input-error_active" : ""
+            !inputLinkValidation.isValid ? " form__input-error_active" : ""
           }`}
           id="element-link-error"
         >
-          {isUserUseInputLink ? errorInputLink.errorMessage : ""}
+          {inputLinkValidation ? inputLinkValidation.errorMessage : ""}
         </span>
     </PopupWithForm>
   );
