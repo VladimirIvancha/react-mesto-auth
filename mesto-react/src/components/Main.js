@@ -64,8 +64,8 @@ function Main({
         ></button>
       </section>
       <div className="elements">
-      {cards.map((card) => {
-          return (
+      {cards.map((card) => 
+          (
             <Card
               key={card._id}
               card={card}
@@ -73,8 +73,8 @@ function Main({
               onCardLike={onCardLike}
               onTrashClick={onTrashClick}
             />
-          );
-        })}
+          )
+        )}
       </div>
       <EditProfilePopup
         onClose={closeAllPopups}

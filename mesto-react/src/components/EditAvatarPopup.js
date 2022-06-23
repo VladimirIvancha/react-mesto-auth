@@ -20,6 +20,10 @@ function EditAvatarPopup({
   }, [isOpen]);
 
   useEffect(() => {
+    setUserAvatar('');
+  }, [isOpen]);
+
+  useEffect(() => {
     if (isSubmitSuccess) {
       setUserAvatar("");
     }

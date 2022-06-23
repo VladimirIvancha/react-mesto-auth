@@ -159,35 +159,33 @@ function App() {
   }
 
   return (
-    <div className="body">
-      <div className="page">
-        <CurrentUserContext.Provider value={currentUser}>
-          <Header />
-          <Main 
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onTrashClick={handleTrashButtonClick}
-          closeAllPopups={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-          onUpdateAvatar={handleUpdateAvatar}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-          onAddPlaceSubmit={handleAddPlaceSubmit}
-          cards={cards}
-          isOpenEditProfile={isOpenEditProfile}
-          isAddPlacePopupOpen={isAddPlacePopupOpen}
-          isEditAvatarPopupOpen={isEditAvatarPopupOpen}
-          isDeletePlacePopupOpen={isDeletePlacePopupOpen}
-          isImagePopupOpen={isImagePopupOpen}
-          isSubmitInLoading={isSubmitInLoading}
-          isSubmitSuccess={isSubmitSuccess}
-          selectedCard={selectedCard}
-          />
-          <Footer />
-        </CurrentUserContext.Provider>
-      </div>
+    <div className="page">
+      <CurrentUserContext.Provider value={currentUser}>
+        <Header />
+        <Main 
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
+        onTrashClick={handleTrashButtonClick}
+        closeAllPopups={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
+        onUpdateAvatar={handleUpdateAvatar}
+        onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete}
+        onAddPlaceSubmit={handleAddPlaceSubmit}
+        cards={cards}
+        isOpenEditProfile={isOpenEditProfile}
+        isAddPlacePopupOpen={isAddPlacePopupOpen}
+        isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+        isDeletePlacePopupOpen={isDeletePlacePopupOpen}
+        isImagePopupOpen={isImagePopupOpen}
+        isSubmitInLoading={isSubmitInLoading}
+        isSubmitSuccess={isSubmitSuccess}
+        selectedCard={selectedCard}
+        />
+        <Footer />
+      </CurrentUserContext.Provider>
     </div>
   );
 }

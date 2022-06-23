@@ -25,7 +25,7 @@ function Card({ card, onCardClick, onCardLike, onTrashClick }) {
             aria-label="удалить"
             className="element__delete-button"
             onClick={() => onTrashClick(card)}
-          ></button>
+          />
           )}
       <div className="element__wrapper">
         <h2 className="element__title">{card.name}</h2>
@@ -35,9 +35,7 @@ function Card({ card, onCardClick, onCardLike, onTrashClick }) {
               aria-label="лайкнуть" 
               className={cardLikeButtonClassName}
               onClick={() => onCardLike(card)}
-            >
-              {""}  
-            </button>
+            />
               <span className="element__like-value">
                 {cardLikesCount === 0 ? "" : cardLikesCount}
               </span>

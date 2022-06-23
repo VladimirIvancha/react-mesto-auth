@@ -28,6 +28,11 @@ function AddPlacePopup({
   }, [isOpen]);
 
   useEffect(() => {
+    setCardName('');
+    setCardLink('');
+  }, [isOpen]); 
+
+  useEffect(() => {
     if (isSubmitSuccess) {
       setCardName("");
       setCardLink("");
@@ -78,7 +83,6 @@ function AddPlacePopup({
       buttonText="Сохранить"
       buttonTextInLoading="Сохранение..."
     >
-      <>
         <input
           value={cardName}
           type="text"
@@ -115,7 +119,6 @@ function AddPlacePopup({
         >
           {isUserUseInputLink ? errorInputLink.errorMessage : ""}
         </span>
-      </>
     </PopupWithForm>
   );
 }
