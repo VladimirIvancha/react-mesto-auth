@@ -1,14 +1,23 @@
 import '../index.css';
 import Header from "./Header";
 import Main from "./Main";
+import Login from "./Login";
+import Register from "./Register";
+import ProtectedRoute from './ProtectedRoute';
 import Footer from "./Footer";
-import { useState } from "react";
+import * as auth from '../auth.js';
+import React, { useState } from "react";
 import { api } from "../utils/api";
 import { useEffect, memo } from "react";
+import { Route, Switch, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import success from '../images/success.svg'
+import unSuccess from '../images/unSuccess.svg'
 
 
 function App() {
+
+  const history = useHistory()
 
   const [currentUser, setCurrentUser] = useState({
     name: "",
@@ -27,7 +36,14 @@ function App() {
 
   const [cards, setCards] = useState([]);
 
+  const [email, setEmail] = useState('')
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false)
+
+  const [message, setMessage] = useState({ img: '', text: '' })
+
   useEffect(() => {
+    if (loggedIn) {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([user, cards]) => {
         setCurrentUser(user);
@@ -37,7 +53,9 @@ function App() {
         console.log("Ошибка! Что-то пошло не так!");
         setCurrentUser({ name: "Ошибка!", about: "Ошибка!" });
       });
-  }, []);
+    tokenCheck()
+    }
+  }, [loggedIn]);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -158,35 +176,111 @@ function App() {
     setSelectedCard(card);
   }
 
+  useEffect(() => {
+    tokenCheck()  
+  }, [])
+
+  function tokenCheck() {
+    const jwt = localStorage.getItem('jwt')
+
+    if (jwt) {
+      auth.getCheckToken(jwt)
+        .then((res) => {
+          if (res) {
+            setEmail(res.data.email)
+            setLoggedIn(true)
+            history.push('/')
+          }
+        })
+        .catch((err) => console.log(err))
+    }
+  }
+
+  function handleRegistration(password, email) {
+    auth.register(password, email)
+      .then((result) => {
+        setEmail(result.data.email)
+        history.push('/sign-in')
+        setMessage({ img: success, text: 'Вы успешно зарегистрировались!' })
+      })
+      .catch(() => setMessage({ img: unSuccess, text: 'Что-то пошло не так! Попробуйте ещё раз.' }))
+      .finally(() => setIsInfoTooltipOpen(true))
+  }
+
+  function handleAuth(password, email) {
+    auth.authorize(password, email)
+      .then((token) => {
+        auth.getCheckToken(token)
+          .then((res) => {
+            setEmail(res.data.email)
+            setLoggedIn(true)
+            history.push('/')
+          })
+          .catch(() => {
+            setMessage({ img: unSuccess, text: 'Что-то пошло не так! Попробуйте ещё раз.' })
+            setIsInfoTooltipOpen(true)
+          })
+      })
+  }
+
+  function onSignOut() {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false)
+  }
+
   return (
-    <div className="page">
-      <CurrentUserContext.Provider value={currentUser}>
-        <Header />
-        <Main 
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-        onEditAvatar={handleEditAvatarClick}
-        onCardClick={handleCardClick}
-        onTrashClick={handleTrashButtonClick}
-        closeAllPopups={closeAllPopups}
-        onUpdateUser={handleUpdateUser}
-        onUpdateAvatar={handleUpdateAvatar}
-        onCardLike={handleCardLike}
-        onCardDelete={handleCardDelete}
-        onAddPlaceSubmit={handleAddPlaceSubmit}
-        cards={cards}
-        isOpenEditProfile={isOpenEditProfile}
-        isAddPlacePopupOpen={isAddPlacePopupOpen}
-        isEditAvatarPopupOpen={isEditAvatarPopupOpen}
-        isDeletePlacePopupOpen={isDeletePlacePopupOpen}
-        isImagePopupOpen={isImagePopupOpen}
-        isSubmitInLoading={isSubmitInLoading}
-        isSubmitSuccess={isSubmitSuccess}
-        selectedCard={selectedCard}
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <Header 
+          email={email}
+          loggedIn={loggedIn}
+          onSignOut={onSignOut}
         />
+          <Switch>
+            <Route path="/sign-up">
+              <Register 
+                onRegister={handleRegistration}
+                isOpen={isOpenEditProfile}
+                isInfoTooltipOpen={isInfoTooltipOpen}
+              />
+            </Route>
+            <Route path="/sign-in">
+              <Login 
+                onAuth={handleAuth}
+                isOpen={isOpenEditProfile}
+              />
+            </Route>
+            <ProtectedRoute
+              loggedIn={loggedIn}
+              exact path="/" 
+              component={Main}  
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onEditAvatar={handleEditAvatarClick}
+              onCardClick={handleCardClick}
+              onTrashClick={handleTrashButtonClick}
+              closeAllPopups={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
+              onUpdateAvatar={handleUpdateAvatar}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+              onAddPlaceSubmit={handleAddPlaceSubmit}
+              cards={cards}
+              isOpenEditProfile={isOpenEditProfile}
+              isAddPlacePopupOpen={isAddPlacePopupOpen}
+              isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+              isDeletePlacePopupOpen={isDeletePlacePopupOpen}
+              isImagePopupOpen={isImagePopupOpen}
+              isSubmitInLoading={isSubmitInLoading}
+              isSubmitSuccess={isSubmitSuccess}
+              selectedCard={selectedCard}
+              isInfoTooltipOpen={isInfoTooltipOpen}
+              message={message}
+            />
+          </Switch>
         <Footer />
-      </CurrentUserContext.Provider>
-    </div>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
