@@ -28,7 +28,7 @@ function Header({ email, onSignOut, loggedIn }) {
               </Route>
 
               <Route path='/sign-in'>
-                <NavLink className="header__link_active" to='/sign-up'>Зарегистрироваться</NavLink>
+                <NavLink className="header__link_active" to='/sign-up'>Регистрация</NavLink>
               </Route>
             </>
           }

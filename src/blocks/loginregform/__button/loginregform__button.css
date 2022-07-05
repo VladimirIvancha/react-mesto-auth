@@ -11,8 +11,15 @@
     border-radius: 2px;
     transition: opacity 0.2s;
     border: none;
-  }
+}
   
-  .loginregform__button:hover {
+.loginregform__button:hover {
     opacity: 0.8;
-  }
+}
+
+@media (max-width: 540px) {
+    .loginregform__button {
+      width: 260px;
+      height: 46px;
+    }
+}

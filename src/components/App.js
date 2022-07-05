@@ -11,6 +11,7 @@ import { api } from "../utils/api";
 import { useEffect, memo } from "react";
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import InfoTooltip from "./InfoTooltip";
 import success from '../images/success.svg'
 import unSuccess from '../images/unSuccess.svg'
 
@@ -148,6 +149,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsImagePopupOpen(false);
     setIsDeletePlacePopupOpen(false);
+    setIsInfoTooltipOpen(false);
   }
 
   function handleCardClick(card) {
@@ -236,49 +238,54 @@ function App() {
           loggedIn={loggedIn}
           onSignOut={onSignOut}
         />
-          <Switch>
-            <Route path="/sign-up">
-              <Register 
-                onRegister={handleRegistration}
-                isOpen={isOpenEditProfile}
-                isInfoTooltipOpen={isInfoTooltipOpen}
-              />
-            </Route>
-            <Route path="/sign-in">
-              <Login 
-                onAuth={handleAuth}
-                isOpen={isOpenEditProfile}
-              />
-            </Route>
-            <ProtectedRoute
-              loggedIn={loggedIn}
-              exact path="/" 
-              component={Main}  
-              onEditProfile={handleEditProfileClick}
-              onAddPlace={handleAddPlaceClick}
-              onEditAvatar={handleEditAvatarClick}
-              onCardClick={handleCardClick}
-              onTrashClick={handleTrashButtonClick}
-              closeAllPopups={closeAllPopups}
-              onUpdateUser={handleUpdateUser}
-              onUpdateAvatar={handleUpdateAvatar}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
-              onAddPlaceSubmit={handleAddPlaceSubmit}
-              cards={cards}
-              isOpenEditProfile={isOpenEditProfile}
-              isAddPlacePopupOpen={isAddPlacePopupOpen}
-              isEditAvatarPopupOpen={isEditAvatarPopupOpen}
-              isDeletePlacePopupOpen={isDeletePlacePopupOpen}
-              isImagePopupOpen={isImagePopupOpen}
-              isSubmitInLoading={isSubmitInLoading}
-              isSubmitSuccess={isSubmitSuccess}
-              selectedCard={selectedCard}
+        <Switch>
+          <Route path="/sign-up">
+            <Register 
+              onRegister={handleRegistration}
+              isOpen={isOpenEditProfile}
               isInfoTooltipOpen={isInfoTooltipOpen}
-              message={message}
             />
-          </Switch>
+          </Route>
+          <Route path="/sign-in">
+            <Login 
+              onAuth={handleAuth}
+              isOpen={isOpenEditProfile}
+            />
+          </Route>
+          <ProtectedRoute
+            loggedIn={loggedIn}
+            exact path="/" 
+            component={Main}  
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+            onTrashClick={handleTrashButtonClick}
+            closeAllPopups={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+            onUpdateAvatar={handleUpdateAvatar}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+            onAddPlaceSubmit={handleAddPlaceSubmit}
+            cards={cards}
+            isOpenEditProfile={isOpenEditProfile}
+            isAddPlacePopupOpen={isAddPlacePopupOpen}
+            isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+            isDeletePlacePopupOpen={isDeletePlacePopupOpen}
+            isImagePopupOpen={isImagePopupOpen}
+            isSubmitInLoading={isSubmitInLoading}
+            isSubmitSuccess={isSubmitSuccess}
+            selectedCard={selectedCard}
+          />
+        </Switch>
         <Footer />
+        <InfoTooltip
+        name='infoToolTip'
+        isOpen={isInfoTooltipOpen}
+        img={message.img}
+        title={message.text}
+        onClose={closeAllPopups}
+        />   
       </div>
     </CurrentUserContext.Provider>
   );

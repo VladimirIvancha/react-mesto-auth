@@ -1,6 +1,8 @@
 .header__logo {
   transition: opacity 0.2s;
   background-image: url(../../../images/vector-logo-mesto-russia.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
   width: 142px;
   height: 33px;
 }

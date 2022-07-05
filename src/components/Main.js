@@ -6,7 +6,6 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import DeletePopup from "./DeletePopup";
-import InfoTooltip from "./InfoTooltip";
 
 function Main({
   onEditProfile,
@@ -29,8 +28,6 @@ function Main({
   isSubmitInLoading,
   isSubmitSuccess,
   selectedCard,
-  isInfoTooltipOpen,
-  message,
 }) 
 
 {   
@@ -114,14 +111,6 @@ function Main({
         onClose={closeAllPopups}
         isOpen={isImagePopupOpen}
       />
-
-      <InfoTooltip
-        name='infoToolTip'
-        isOpen={isInfoTooltipOpen}
-        img={message.img}
-        title={message.text}
-        onClose={closeAllPopups}
-      />   
     </main>
   );
 }
