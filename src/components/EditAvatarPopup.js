@@ -15,11 +15,9 @@ function EditAvatarPopup({
   });
   const [isUserUseInputAvatar, setIsUserUseInputAvatar] = useState(false);
   const [canSubmit, setCanSubmit] = useState(false);
-  useEffect(() => {
-    setIsUserUseInputAvatar(false);
-  }, [isOpen]);
 
   useEffect(() => {
+    setIsUserUseInputAvatar(false);
     setUserAvatar('');
   }, [isOpen]);
 
@@ -60,25 +58,23 @@ function EditAvatarPopup({
       buttonText="Сохранить"
       buttonTextInLoading="Сохранение..."
     >
-      <>
-        <input
-          value={userAvatar}
-          type="url"
-          className="form__item"
-          name="avatar-link"
-          placeholder="Ссылка на новый аватар"
-          required
-          onChange={handleOnChangeInputAvatar}
-        />
-        <span
-          className={`form__input-error${
-            !errorInputAvatar.isValid ? " form__input-error_active" : ""
-          }`}
-          id="avatar-link-error"
-        >
-          {isUserUseInputAvatar ? errorInputAvatar.errorMessage : ""}
-        </span>
-      </>
+      <input
+        value={userAvatar}
+        type="url"
+        className="form__item"
+        name="avatar-link"
+        placeholder="Ссылка на новый аватар"
+        required
+        onChange={handleOnChangeInputAvatar}
+      />
+      <span
+        className={`form__input-error${
+          !errorInputAvatar.isValid ? " form__input-error_active" : ""
+        }`}
+        id="avatar-link-error"
+      >
+        {isUserUseInputAvatar ? errorInputAvatar.errorMessage : ""}
+      </span>
     </PopupWithForm>
   );
 }

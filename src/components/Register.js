@@ -1,17 +1,17 @@
-import LoginRegForm from "./LoginRegForm"
-import React, { useState } from "react"
+import LoginRegForm from "./LoginRegForm";
+import React, { useState } from "react";
 
 function Register({ onRegister }) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   function handleChange(e) {
     const { value } = e.target;
-    e.target.name === 'email' ? setEmail(value) : setPassword(value)
+    e.target.name === "email" ? setEmail(value) : setPassword(value);
   }
 
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     onRegister(password, email);
   }
 
@@ -28,28 +28,26 @@ function Register({ onRegister }) {
           name="email"
           type="email"
           placeholder="Email"
-          value={email || ''}
+          value={email || ""}
           minLength="6"
           maxLength="40"
           onChange={handleChange}
           required
-        >
-        </input>
+        ></input>
         <input
           className="loginregform__input"
           name="password"
           type="password"
           placeholder="Password"
-          value={[password] || ''}
+          value={[password] || ""}
           minLength="6"
           maxLength="40"
           onChange={handleChange}
           required
-        >
-        </input>
+        ></input>
       </LoginRegForm>
     </div>
-  )
+  );
 }
 
-export default Register
+export default Register;

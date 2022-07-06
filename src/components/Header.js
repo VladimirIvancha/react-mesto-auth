@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, withRouter, Route, useLocation } from 'react-router-dom';
+import { Switch, NavLink, withRouter, Route, useLocation } from 'react-router-dom';
 
 function Header({ email, onSignOut, loggedIn }) {
   const location = useLocation()
@@ -22,7 +22,7 @@ function Header({ email, onSignOut, loggedIn }) {
         :
         <>
           {
-            <>
+            <Switch>
               <Route path='/sign-up'>
                 <NavLink className="header__link_active" to='/sign-in'>Войти</NavLink>
               </Route>
@@ -30,7 +30,7 @@ function Header({ email, onSignOut, loggedIn }) {
               <Route path='/sign-in'>
                 <NavLink className="header__link_active" to='/sign-up'>Регистрация</NavLink>
               </Route>
-            </>
+            </Switch>
           }
         </>
       }
