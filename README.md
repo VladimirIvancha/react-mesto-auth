@@ -1,14 +1,23 @@
 # Проект: Место
 ____
 
-## Описание проекта
-Одностраничный сайт с подписанными фотографиями. Знакомит с помощью фотографий со впечатляющими местами на территории нашей страны и не только.
-Содержит flexbox и grid элементы. Сверстан по правилам Nested БЭМ с использованием только HTML, CSS и JS.
-Сверстан гибридно для отработки использования темплейтов, классов, импорта-экспорта.
-Позволяет менять имя и профессию через всплывающее окно. Также позволяет добавлять картинки пользователя с подписью, удалять, ставить лайки.
-Ссылка на GitHub Pages:
-[https://vladimirivancha.github.io/mesto/index.html]
+### Описание идеи:
+Сайт обмена фотографиями с возможностью их оценки "лайком".
+### Функционал:
+Создан на React.js. Многостраничный сайт с многопользовательским доступом. Позволяет регистрироваться новым пользователям (используя e-mail и пароль), редактировать имя, информацию о себе и свой аватар. Позволяет добавлять для общего доступа и удалять свои фотографии, просматривать их в увеличенном режиме, а также ставить лайки и отменять их любым фотографиям.
+### Стек:
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)
+![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)
+
+### Ссылка на GitHub Pages:
+https://github.com/VladimirIvancha/react-mesto-auth
 ____
 
 ### Планы по доработке:
-- [ ] отсутствуют пока что
+- [ ] реализовать возможность переключения на английский язык;
+- [ ] добавить информацию об авторе размещенной фотографии.
